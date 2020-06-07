@@ -22,13 +22,12 @@ enum custom_keycodes {
   LOWER,
   RAISE,
   ADJUST,
-  BACKLIT,
   RGBRST
 };
 
-enum macro_keycodes {
+/*enum macro_keycodes {
   KC_SAMPLEMACRO,
-};
+};*/
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT( \
@@ -97,6 +96,7 @@ void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
   }
 }
 
+/*
 void matrix_init_user(void) {
     #ifdef RGBLIGHT_ENABLE
       RGB_current_mode = rgblight_config.mode;
@@ -154,14 +154,23 @@ void iota_gfx_task_user(void) {
   matrix_update(&display, &matrix);
 }
 #endif//SSD1306OLED
+*/
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+/*
   if (record->event.pressed) {
+
 #ifdef SSD1306OLED
     set_keylog(keycode, record);
 #endif
     // set_timelog();
   }
+*/
+  #ifdef CONSOLE_ENABLE
+    uprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
+  #endif 
+
+  return true;
 
   switch (keycode) {
     case QWERTY:
@@ -214,4 +223,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
   }
   return true;
+}
+
+void keyboard_post_init_user(void) {
+  // Customise these values to desired behaviour
+  debug_enable=true;
+  debug_matrix=true;
+  //debug_keyboard=true;
+  //debug_mouse=true;
 }
