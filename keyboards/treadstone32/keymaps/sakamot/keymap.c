@@ -34,11 +34,11 @@ enum custom_keycodes {
 #define KC_MLAD  MO(_ADJUST)
 
 // Base layer mod tap
-#define KC_A_SF  LSFT_T(KC_A)
-#define KC_Z_CT  LCTL_T(KC_Z)
-#define KC_X_AL  LALT_T(KC_X)
-#define KC_C_GU  LGUI_T(KC_C)
-#define KC_SSCT  RCTL_T(KC_SLSH)
+#define KC_A_CT  LCTL_T(KC_A)
+#define KC_C_AL  LALT_T(KC_C)
+#define KC_V_GU  LGUI_T(KC_V)
+#define KC_Z_SF  LSFT_T(KC_Z)
+#define KC_SSSF  RSFT_T(KC_SLSH)
 #define KC_ENSF  RSFT_T(KC_ENT)
 
 // Lower layer mod tap
@@ -48,8 +48,8 @@ enum custom_keycodes {
 #define KC_12AL  LALT_T(KC_F12)
 
 // Layer tap
-#define KC_BSLO  LT(_LOWER, KC_BSPC)
-#define KC_SPRA  LT(_RAISE, KC_SPC)
+#define KC_SPLO  LT(_LOWER, KC_SPC)
+#define KC_ENRA  LT(_RAISE, KC_ENT)
 
 // Tap dance
 // #define KC_CODO  TD(TD_CODO)
@@ -71,35 +71,46 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,---------------------------------------------------------------------------------------------------.
           KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-       KC_A_SF,     KC_S,     KC_D,     KC_F,     KC_G,     KC_H,     KC_J,     KC_K,     KC_L,  KC_ENSF,
+       KC_A_CT,     KC_S,     KC_D,     KC_F,     KC_G,     KC_H,     KC_J,     KC_K,     KC_L,  KC_SCLN,
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-       KC_Z_CT,  KC_X_AL,  KC_C_GU,     KC_V,     KC_B,     KC_N,     KC_M,  KC_COMM,   KC_DOT,  KC_SSCT,
+       KC_Z_SF,     KC_X,  KC_C_AL,  KC_V_GU,     KC_B,     KC_N,     KC_M,  KC_COMM,   KC_DOT,  KC_SSSF,
   //`---------+---------+---------+---------+---------+---------+---------+---------+---------+---------'
-                                               KC_BSLO,  KC_SPRA
+                                               KC_SPLO,  KC_ENRA
   //                                        `---------|---------'
   ),
 
   [_LOWER] = LAYOUT(
+//
+//| ! | @ | # | $ | % |  | ^  | & | * | ( | ) |
+//|   |   |   |   | ~ |  | _  | + | { | } | | |
+//|   |   |   |   | [ |  | ]  |   |   |   | 
+//                |   |  | bs |
+
   //,---------------------------------------------------------------------------------------------------.
-         KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,  KC_MINS,   KC_EQL,  KC_LBRC,  KC_RBRC,  KC_BSLS,
+       KC_EXLM,    KC_AT,  KC_HASH,   KC_DLR,  KC_PERC,  KC_CIRC,  KC_AMPR,  KC_ASTR,  KC_LPRN,  KC_RPRN,
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-       KC_F6SF,    KC_F7,    KC_F8,    KC_F9,   KC_F10,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_SCLN,  KC_QUSF,
+      KC_LCTRL,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_TILD,  KC_UNDS,  KC_PLUS,  KC_LCBR,  KC_RCBR,  KC_PIPE,
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-       KC_11CT,  KC_12AL,   KC_ESC,   KC_TAB,    KANJI,   KC_DEL,  XXXXXXX,  XXXXXXX,    KC_RO,   KC_GRV,
+     KC_LSHIFT,  KC_LALT,  KC_LGUI,  XXXXXXX,  KC_LBRC,  KC_RBRC,  XXXXXXX,  XXXXXXX,    KC_RO,   KC_GRV,
   //`---------+---------+---------+---------+---------+---------+---------+---------+---------+---------'
-                                               _______,  KC_MLAD
+                                               _______,  KC_BSPC
   //                                        `---------|---------'
   ),
 
   [_RAISE] = LAYOUT(
+
+// | 1 | 2 | 3 | 4 | 5 |  | 6 | 7    | 8    | 9  | 0     |
+// |   |   |   |   |   |  |   | LEFT | DOWN | UP | RIGHT |
+// |   |   |   |   |   |  | + |   -  |  =   |  _ | \     |
+
   //,---------------------------------------------------------------------------------------------------.
           KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-       KC_LSFT,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_LEFT,  KC_DOWN,    KC_UP,  KC_RGHT,  KC_LSFT,
+        KC_ESC,   KC_TAB,  XXXXXXX,LCTL(KC_SPC),XXXXXXX,  XXXXXXX,  KC_LEFT,  KC_DOWN,    KC_UP,  KC_RGHT,
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-       KC_LCTL,  KC_LALT,  KC_LGUI,  XXXXXXX,  XXXXXXX,  KC_MINS,    KC_RO,  KC_COMM,   KC_DOT,  KC_SSCT,
+     LGUI(KC_Z),RCTL(RGUI(KC_SPACE)),LGUI(KC_C),LGUI(KC_V),XXXXXXX,  KC_PLUS,  KC_MINS,   KC_EQL,  KC_UNDS,  KC_BSLS,
   //`---------+---------+---------+---------+---------+---------+---------+---------+---------+---------'
-                                               _______,  _______
+                                               KC_MLAD,  _______
   //                                        `---------|---------'
   ),
 
@@ -118,9 +129,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 uint16_t get_tapping_term(uint16_t keycode) {
   switch (keycode) {
-    case KC_BSLO:
+    case KC_SPLO:
       return TAPPING_LAYER_TERM;
-    case KC_SPRA:
+    case KC_ENRA:
       return TAPPING_LAYER_TERM;
     default:
       return TAPPING_TERM;
